@@ -51,5 +51,15 @@ class Student
     self.new(row[0], row[1], row[2])
   end
 
+  def self.find_by_name(name)
+    sql = <<-SQL
+      SELECT *
+      FROM students
+      WHERE name = ?
+      LIMIT 1
+    SQL
+    self.new_from_db(DB[:conn].execute(sql, name).first)
+  end
+
 
 end
